@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+uploads/
+.parcel-cache/
+.cache/
+__pycache__/
+*.log
