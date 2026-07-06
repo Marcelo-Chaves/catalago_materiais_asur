@@ -20,10 +20,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middlewares globais
-app.use(helmet());
+
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: {
+      policy: "cross-origin"
+    }
+  })
+);
 
 // Swagger
 app.use(
@@ -32,11 +40,10 @@ app.use(
   swaggerUi.setup(specs)
 );
 
-// Arquivos estáticos
 app.use(
   "/uploads",
   express.static(
-    path.join(__dirname, "uploads")
+    path.resolve("uploads")
   )
 );
 

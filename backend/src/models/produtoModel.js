@@ -43,8 +43,13 @@ export async function listarProdutos(
 
   let query = `
     SELECT
-      p.*,
-      c.nome AS categoria
+      p.id,
+      p.nome,
+      p.descricao,
+      p.categoria_id,
+      p.quantidade,
+      p.imagem,
+      c.nome AS categoria_nome
     FROM produtos p
     LEFT JOIN categorias c
       ON c.id = p.categoria_id
@@ -55,24 +60,19 @@ export async function listarProdutos(
   let index = 1;
 
   if (nome) {
-    query += `
-      AND LOWER(p.nome)
-      LIKE LOWER($${index})
-    `;
+    query += ` AND LOWER(p.nome) LIKE LOWER($${index})`;
     values.push(`%${nome}%`);
     index++;
   }
 
   if (categoria_id) {
-    query += `
-      AND p.categoria_id = $${index}
-    `;
+    query += ` AND p.categoria_id = $${index}`;
     values.push(categoria_id);
     index++;
   }
 
   query += `
-    ORDER BY p.id
+    ORDER BY p.id DESC
     LIMIT $${index}
     OFFSET $${index + 1}
   `;
@@ -80,10 +80,7 @@ export async function listarProdutos(
   values.push(limit);
   values.push(offset);
 
-  const result = await db.query(
-    query,
-    values
-  );
+  const result = await db.query(query, values);
 
   return result.rows;
 }
@@ -92,8 +89,12 @@ export async function buscarProdutoPorId(id) {
   const result = await db.query(
     `
     SELECT
-      p.*,
-      c.nome AS categoria
+      p.id,
+      p.nome,
+      p.descricao,
+      p.quantidade,
+      p.imagem,
+      c.nome AS categoria_nome
     FROM produtos p
     LEFT JOIN categorias c
       ON c.id = p.categoria_id

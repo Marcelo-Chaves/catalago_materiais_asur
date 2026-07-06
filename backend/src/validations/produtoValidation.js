@@ -9,12 +9,9 @@ export const produtoSchema = z.object({
     .string()
     .min(3, "Descrição obrigatória"),
 
-  categoria_id: z
-    .number(),
+  categoria_id: z.coerce.number(), // 👈 CORRETO
 
-  quantidade: z
-    .number()
-    .min(0),
+  quantidade: z.coerce.number().min(0), // 👈 CORRETO
 
   imagem: z
     .string()

@@ -5,21 +5,38 @@ export function autenticarToken(
   res,
   next
 ) {
+
+  console.log(
+    "AUTHORIZATION:",
+    req.headers.authorization
+  );
+
   const authHeader =
     req.headers.authorization;
 
   if (!authHeader) {
+
+    console.log(
+      "Token não informado"
+    );
+
     return res.status(401).json({
       erro: "Token não informado"
     });
   }
 
-  const partes = authHeader.split(" ");
+  const partes =
+    authHeader.split(" ");
 
   if (
     partes.length !== 2 ||
     partes[0] !== "Bearer"
   ) {
+
+    console.log(
+      "Formato do token inválido"
+    );
+
     return res.status(401).json({
       erro: "Formato do token inválido"
     });
@@ -29,20 +46,32 @@ export function autenticarToken(
 
   try {
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET
+    const decoded =
+      jwt.verify(
+        token,
+        process.env.JWT_SECRET
+      );
+
+    console.log(
+      "TOKEN DECODIFICADO:",
+      decoded
     );
 
-    req.usuario = decoded;
+    req.usuario =
+      decoded;
 
     next();
 
   } catch (error) {
 
-    return res.status(401).json({
-      erro: "Token inválido ou expirado"
-    });
+    console.log(
+      "ERRO JWT:",
+      error.message
+    );
 
+    return res.status(401).json({
+      erro:
+        "Token inválido ou expirado"
+    });
   }
 }

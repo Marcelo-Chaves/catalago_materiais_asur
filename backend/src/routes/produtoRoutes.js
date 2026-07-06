@@ -58,21 +58,15 @@ router.post(
   "/",
   autenticarToken,
   autorizar("admin"),
+  upload.single("imagem"),
   create
 );
 
-// Usuário autenticado pode visualizar
-router.get(
-  "/",
-  autenticarToken,
-  findAll
-);
+// Público
+router.get("/", findAll);
 
-router.get(
-  "/:id",
-  autenticarToken,
-  findById
-);
+// Público
+router.get("/:id", findById);
 
 // Apenas admin pode alterar
 router.put(
@@ -80,6 +74,14 @@ router.put(
   autenticarToken,
   autorizar("admin"),
   update
+);
+
+// Apenas admin pode excluir
+router.delete(
+  "/:id",
+  autenticarToken,
+  autorizar("admin"),
+  remove
 );
 
 // Apenas admin pode excluir

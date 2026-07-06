@@ -6,53 +6,39 @@ import {
   buscarUsuarioPorEmail
 } from "../models/userModel.js";
 
-export async function registrarUsuario(
-  nome,
-  email,
-  senha
-) {
-  const usuarioExistente =
-    await buscarUsuarioPorEmail(email);
+export async function registrarUsuario(nome, email, senha) {
+  const usuarioExistente = await buscarUsuarioPorEmail(email);
+
+  console.log("EMAIL RECEBIDO:", email);
+  console.log("USUÁRIO RETORNADO:", usuarioExistente);
 
   if (usuarioExistente) {
-    throw new Error(
-      "E-mail já cadastrado"
-    );
+    throw new Error("E-mail já cadastrado");
   }
 
-  const senhaHash =
-    await bcrypt.hash(senha, 10);
+  const senhaHash = await bcrypt.hash(senha, 10);
 
-  return await criarUsuario(
-    nome,
-    email,
-    senhaHash
-  );
+  return await criarUsuario(nome, email, senhaHash);
 }
 
-export async function loginUsuario(
-  email,
-  senha
-) {
-  const usuario =
-    await buscarUsuarioPorEmail(email);
+export async function loginUsuario(email, senha) {
+  const usuario = await buscarUsuarioPorEmail(email);
+
+  // 🔥 DEBUG IMPORTANTE
+  console.log("EMAIL RECEBIDO:", email);
+  console.log("USUÁRIO RETORNADO:", usuario);
 
   if (!usuario) {
-    throw new Error(
-      "Usuário ou senha inválidos"
-    );
+    throw new Error("Usuário ou senha inválidos");
   }
 
-  const senhaValida =
-    await bcrypt.compare(
-      senha,
-      usuario.senha
-    );
+  const senhaValida = await bcrypt.compare(
+    senha,
+    usuario.senha
+  );
 
   if (!senhaValida) {
-    throw new Error(
-      "Usuário ou senha inválidos"
-    );
+    throw new Error("Usuário ou senha inválidos");
   }
 
   const token = jwt.sign(
