@@ -1,7 +1,6 @@
 node_modules/
 dist/
-.env
-uploads/
+.env/
 .parcel-cache/
 .cache/
 __pycache__/
