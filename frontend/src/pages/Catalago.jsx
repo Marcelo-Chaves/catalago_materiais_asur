@@ -106,7 +106,7 @@ return (
           {produto.imagem && (
 
             <img
-              src={`http://localhost:3333/uploads/${produto.imagem}`}
+              src={`https://catalago-materiais-asur.onrender.com/uploads/${produto.imagem}`}
               alt={produto.nome}
             />
 

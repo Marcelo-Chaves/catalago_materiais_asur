@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://catalago-materiais-asur.onrender.com",
   headers: {
     "Content-Type": "application/json"
   }
@@ -19,6 +19,9 @@ api.interceptors.request.use(
     }
 
     return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
 );
 
