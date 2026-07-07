@@ -9,7 +9,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  async function handleLogin(e) {
+  async function handleLogin(e) { 
     e.preventDefault();
 
     try {
@@ -22,9 +22,17 @@ export default function Login() {
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem(
-        "usuario",
-        JSON.stringify(response.data.usuario)
-      );
+  "usuario",
+  JSON.stringify(response.data.usuario)
+);
+
+const usuario = response.data.usuario;
+
+if (usuario.tipo === "admin") {
+  navigate("/dashboard");
+} else {
+  navigate("/catalogo");
+}
 
       navigate("/dashboard");
 

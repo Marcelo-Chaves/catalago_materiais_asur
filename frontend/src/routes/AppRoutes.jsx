@@ -13,16 +13,16 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
 
-        {/* Login */}
+        {/* Catálogo Público - página inicial */}
         <Route
           path="/"
-          element={<Login />}
+          element={<Catalogo />}
         />
 
-        {/* Catálogo Público */}
+        {/* Login Administrativo */}
         <Route
-          path="/catalogo"
-          element={<Catalogo />}
+          path="/login"
+          element={<Login />}
         />
 
         {/* Dashboard */}
