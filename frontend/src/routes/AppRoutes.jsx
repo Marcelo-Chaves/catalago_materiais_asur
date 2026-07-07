@@ -4,7 +4,7 @@ import Login from "../pages/login";
 import Dashboard from "../pages/Dashboard";
 import Categorias from "../pages/Categorias";
 import Produtos from "../pages/Produto";
-import Catalogo from "../pages/Catalago";
+import Catalogo from "../pages/Catalogo";
 
 import PrivateRoute from "./PrivateRoute";
 
