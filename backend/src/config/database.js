@@ -6,11 +6,10 @@ dotenv.config();
 const { Pool } = pg;
 
 export const db = new Pool({
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // Teste de conexão
@@ -19,5 +18,5 @@ db.query("SELECT NOW()")
     console.log("✅ Banco conectado com sucesso");
   })
   .catch((err) => {
-    console.error("❌ Erro ao conectar:", err.message);
+    console.error("❌ Erro ao conectar:", err);
   });
