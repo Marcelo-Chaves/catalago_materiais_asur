@@ -18,7 +18,9 @@ export default function Login() {
         senha
       });
 
-      console.log("LOGIN RESPONSE:", response.data);
+      console.log("USUARIO:", response.data.usuario);
+      console.log("ROLE:", response.data.usuario?.role);
+      console.log("TOKEN:", response.data.token);
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem(

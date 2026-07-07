@@ -15,47 +15,42 @@ export default function AppRoutes() {
 
         {/* Catálogo Público - página inicial */}
         <Route
-          path="/"
-          element={<Catalogo />}
-        />
+  path="/"
+  element={<Catalogo />}
+/>
 
-        {/* Login Administrativo */}
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+<Route
+  path="/login"
+  element={<Login />}
+/>
 
-        {/* Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
+<Route
+  path="/dashboard"
+  element={
+    <PrivateRoute>
+      <Dashboard />
+    </PrivateRoute>
+  }
+/>
 
-        {/* Categorias */}
-        <Route
-          path="/categorias"
-          element={
-            <PrivateRoute>
-              <Categorias />
-            </PrivateRoute>
-          }
-        />
+<Route
+  path="/categorias"
+  element={
+    <PrivateRoute>
+      <Categorias />
+    </PrivateRoute>
+  }
+/>
 
-        {/* Produtos */}
-        <Route
-          path="/produtos"
-          element={
-            <PrivateRoute>
-              <Produtos />
-            </PrivateRoute>
-          }
-        />
-
-      </Routes>
+<Route
+  path="/produtos"
+  element={
+    <PrivateRoute>
+      <Produtos />
+    </PrivateRoute>
+  }
+/>
+    </Routes>
     </BrowserRouter>
   );
 }

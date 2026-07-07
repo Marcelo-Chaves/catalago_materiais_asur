@@ -114,27 +114,52 @@ export async function atualizarProduto(
   quantidade,
   imagem
 ) {
-  const result = await db.query(
-    `
-    UPDATE produtos
-    SET
-      nome = $1,
-      descricao = $2,
-      categoria_id = $3,
-      quantidade = $4,
-      imagem = $5
-    WHERE id = $6
-    RETURNING *
-    `,
-    [
+  let query;
+  let values;
+
+  if (imagem) {
+    query = `
+      UPDATE produtos
+      SET
+        nome = $1,
+        descricao = $2,
+        categoria_id = $3,
+        quantidade = $4,
+        imagem = $5
+      WHERE id = $6
+      RETURNING *;
+    `;
+
+    values = [
       nome,
       descricao,
       categoria_id,
       quantidade,
       imagem,
       id
-    ]
-  );
+    ];
+  } else {
+    query = `
+      UPDATE produtos
+      SET
+        nome = $1,
+        descricao = $2,
+        categoria_id = $3,
+        quantidade = $4
+      WHERE id = $5
+      RETURNING *;
+    `;
+
+    values = [
+      nome,
+      descricao,
+      categoria_id,
+      quantidade,
+      id
+    ];
+  }
+
+  const result = await db.query(query, values);
 
   return result.rows[0];
 }
