@@ -10,33 +10,36 @@ const [produtos, setProdutos] = useState([]);
 const [loading, setLoading] = useState(true);
 const [erro, setErro] = useState("");
 
+
 async function carregarProdutos() {
 
 try {
 
   setLoading(true);
 
-  const response =
-    await listarProdutos();
+  const response = await listarProdutos();
 
-  const dados =
-    Array.isArray(response)
-      ? response
-      : response?.data ||
-        response?.produtos ||
-        [];
+  console.log("RESPOSTA COMPLETA API:", response);
+
+
+  const dados = response?.data ?? [];
+
+
+  console.log("DADOS:", dados);
+  console.log("QUANTIDADE:", dados.length);
+
 
   setProdutos(dados);
 
-  console.log("PRODUTOS RECEBIDOS:", dados);
 
 } catch (error) {
 
-  console.error(error);
+  console.error("ERRO AO CARREGAR PRODUTOS:", error);
 
   setErro(
     "Erro ao carregar produtos"
   );
+
 
 } finally {
 
@@ -44,15 +47,30 @@ try {
 
 }
 
-
 }
 
+
+
 useEffect(() => {
-carregarProdutos();
+
+  carregarProdutos();
+
 }, []);
 
-return (
 
+
+useEffect(() => {
+
+  console.log(
+    "PRODUTOS NO ESTADO:",
+    produtos
+  );
+
+}, [produtos]);
+
+
+
+return (
 
 <div className="catalogo">
 
@@ -63,10 +81,11 @@ return (
     </h1>
 
     <p>
-        Associação Sul de Rondônia
+      Associação Sul de Rondônia
     </p>
 
   </header>
+
 
   <div className="catalogo__aviso">
 
@@ -76,17 +95,23 @@ return (
 
   </div>
 
+
   <div className="catalogo__contador">
 
     📦 {produtos.length} materiais cadastrados
 
   </div>
 
+
   {erro && (
+
     <p className="erro">
       {erro}
     </p>
+
   )}
+
+
 
   {loading ? (
 
@@ -94,47 +119,65 @@ return (
       Carregando...
     </p>
 
+
   ) : (
+
 
     <div className="catalogo__grid">
 
+
       {produtos.map((produto) => (
+
 
         <div
           key={produto.id}
           className="catalogo__card"
         >
 
-       {produto.imagem && (
-  <img
-    src={produto.imagem}
-    alt={produto.nome}
-    loading="lazy"
-  />
-)}
+
+          {produto.imagem && (
+
+            <img
+              src={produto.imagem}
+              alt={produto.nome}
+              loading="lazy"
+            />
+
+          )}
+
+
 
           <div className="catalogo__content">
+
 
             <h3>
               {produto.nome}
             </h3>
 
+
             <span>
               {produto.categoria_nome || "Sem departamento"}
             </span>
 
+
           </div>
+
 
         </div>
 
+
       ))}
+
 
     </div>
 
+
   )}
+
 
 </div>
 
 
 );
+
 }
