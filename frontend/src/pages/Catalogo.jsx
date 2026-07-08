@@ -98,8 +98,7 @@ return (
 
   <div className="catalogo__contador">
 
-      TESTE CONTADOR:
-      {JSON.stringify(produtos.length)}
+      📦 {Array.isArray(produtos) ? produtos.length : 0} materiais cadastrados
 
   </div>
 
