@@ -118,18 +118,23 @@ export default function Produtos() {
 
     try {
 
-      const formData =
-        new FormData();
+      const formData = new FormData();
+
+          console.log("========== DADOS ANTES DO ENVIO ==========");
+          console.log("NOME:", nome);
+          console.log("DESCRIÇÃO:", descricao);
+          console.log("CATEGORIA:", categoriaId);
+          console.log("IMAGEM:", imagem);
 
       formData.append(
         "nome",
         nome
       );
 
-      formData.append(
-        "descricao",
-        descricao
-      );
+formData.append(
+  "descricao",
+  descricao
+);
 
       formData.append(
         "categoria_id",
@@ -142,13 +147,20 @@ export default function Produtos() {
       );
 
       if (imagem) {
-        formData.append(
-          "imagem",
-          imagem
-        );
-      }
+  formData.append(
+    "imagem",
+    imagem
+  );
+}
 
-      if (produtoEditando) {
+console.log("========== FORMDATA ==========");
+
+for (let item of formData.entries()) {
+  console.log(item[0], item[1]);
+}
+
+
+if (produtoEditando) { {
 
         await atualizarProduto(
           produtoEditando.id,
