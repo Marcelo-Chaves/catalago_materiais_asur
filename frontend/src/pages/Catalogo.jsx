@@ -98,7 +98,8 @@ return (
 
   <div className="catalogo__contador">
 
-    📦 {produtos.length} materiais cadastrados
+      TESTE CONTADOR:
+      {JSON.stringify(produtos.length)}
 
   </div>
 
@@ -126,7 +127,7 @@ return (
     <div className="catalogo__grid">
 
       <h2>
-          TESTE QUANTIDADE: {produtos.length}
+          PRODUTOS NA TELA: {produtos.length}
       </h2>
 
 
