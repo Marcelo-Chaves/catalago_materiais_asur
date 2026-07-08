@@ -125,10 +125,6 @@ return (
 
     <div className="catalogo__grid">
 
-      <h2>
-          PRODUTOS NA TELA: {produtos.length}
-      </h2>
-
 
       {produtos.map((produto) => (
 
