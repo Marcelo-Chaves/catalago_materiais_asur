@@ -63,7 +63,7 @@ let query = `
   LEFT JOIN categorias c
     ON c.id = p.categoria_id
   WHERE 1=1
-  ORDER BY p.id DESC
+  
 `;
 
   const values = [];
