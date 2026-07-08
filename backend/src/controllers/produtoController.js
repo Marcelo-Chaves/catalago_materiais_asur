@@ -1,3 +1,5 @@
+import { uploadImagemSupabase } from "../services/supabaseUpload.js";
+
 import {
   criarProduto,
   listarProdutos,
@@ -22,7 +24,11 @@ export async function create(req, res) {
 
     produtoSchema.parse(data);
 
-    const imagem = req.file ? req.file.filename : null;
+    let imagem = null;
+
+    if (req.file) {
+    imagem = await uploadImagemSupabase(req.file);
+  }
 
     const produto = await criarProduto(
       data.nome,
@@ -106,8 +112,11 @@ export async function update(req, res) {
 
     produtoSchema.parse(data);
 
-    const imagem = req.file ? req.file.filename : null;
+    let imagem = null;
 
+    if (req.file) {
+    imagem = await uploadImagemSupabase(req.file);
+  }
     const produto = await atualizarProduto(
       req.params.id,
       data.nome,

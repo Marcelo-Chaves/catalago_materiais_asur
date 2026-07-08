@@ -9,8 +9,7 @@ import {
   uploadImagem
 } from "../controllers/produtoController.js";
 
-import { upload }
-from "../middlewares/uploadMiddleware.js";
+import { upload } from "../middlewares/uploadMiddleware.js";
 
 import {
   autenticarToken
@@ -22,28 +21,9 @@ import {
 
 const router = Router();
 
+
 /**
- * @swagger
- * /produtos/upload:
- *   post:
- *     summary: Upload de imagem do produto
- *     tags:
- *       - Produtos
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               imagem:
- *                 type: string
- *                 format: binary
- *     responses:
- *       200:
- *         description: Upload realizado com sucesso
+ * Upload separado de imagem
  */
 router.post(
   "/upload",
@@ -53,7 +33,8 @@ router.post(
   uploadImagem
 );
 
-// Apenas admin pode criar
+
+// Criar produto
 router.post(
   "/",
   autenticarToken,
@@ -62,21 +43,32 @@ router.post(
   create
 );
 
-// Público
-router.get("/", findAll);
 
-// Público
-router.get("/:id", findById);
+// Listar produtos (público)
+router.get(
+  "/",
+  findAll
+);
 
-// Apenas admin pode alterar
+
+// Buscar produto por ID (público)
+router.get(
+  "/:id",
+  findById
+);
+
+
+// Atualizar produto
 router.put(
   "/:id",
   autenticarToken,
   autorizar("admin"),
+  upload.single("imagem"),
   update
 );
 
-// Apenas admin pode excluir
+
+// Excluir produto
 router.delete(
   "/:id",
   autenticarToken,
@@ -84,12 +76,5 @@ router.delete(
   remove
 );
 
-// Apenas admin pode excluir
-router.delete(
-  "/:id",
-  autenticarToken,
-  autorizar("admin"),
-  remove
-);
 
 export default router;
