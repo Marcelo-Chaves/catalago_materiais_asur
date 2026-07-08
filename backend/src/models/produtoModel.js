@@ -50,21 +50,21 @@ export async function listarProdutos(
   categoria_id = null
 ) {
   const offset = (page - 1) * limit;
-
-  let query = `
-    SELECT
-      p.id,
-      p.nome,
-      p.descricao,
-      p.categoria_id,
-      p.quantidade,
-      p.imagem,
-      c.nome AS categoria_nome
-    FROM produtos p
-    LEFT JOIN categorias c
-      ON c.id = p.categoria_id
-    WHERE 1=1
-  `;
+let query = `
+  SELECT
+    p.id,
+    p.nome,
+    p.descricao,
+    p.categoria_id,
+    p.quantidade,
+    p.imagem,
+    c.nome AS categoria_nome
+  FROM produtos p
+  LEFT JOIN categorias c
+    ON c.id = p.categoria_id
+  WHERE 1=1
+  ORDER BY p.id DESC
+`;
 
   const values = [];
   let index = 1;
