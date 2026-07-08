@@ -290,9 +290,11 @@ return (
         type="text"
         placeholder="Nome"
         value={nome}
-        onChange={(e) =>
-          setNome(e.target.value)
-        }
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck={false}
+        onChange={(e) => setNome(e.target.value)}
       />
 
       <input
