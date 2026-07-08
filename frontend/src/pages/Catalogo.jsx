@@ -2,175 +2,189 @@ import { useEffect, useState } from "react";
 
 import { listarProdutos } from "../api/produtoApi";
 
-import "../styles/Catalago.scss";
+// import "../styles/Catalago.scss";
 
 export default function Catalogo() {
 
-const [produtos, setProdutos] = useState([]);
-const [loading, setLoading] = useState(true);
-const [erro, setErro] = useState("");
+  const [produtos, setProdutos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState("");
 
 
-async function carregarProdutos() {
+  async function carregarProdutos() {
 
-try {
+    try {
 
-  setLoading(true);
+      setLoading(true);
 
-  const response = await listarProdutos();
+      const response = await listarProdutos();
 
-  console.log("RESPOSTA COMPLETA API:", response);
+      console.log("RESPOSTA COMPLETA API:", response);
 
+      const dados = response?.data ?? [];
 
-  const dados = response?.data ?? [];
+      console.log("DADOS:", dados);
+      console.log("QUANTIDADE:", dados.length);
 
-
-  console.log("DADOS:", dados);
-  console.log("QUANTIDADE:", dados.length);
-
-
-  setProdutos(dados);
+      setProdutos(dados);
 
 
-} catch (error) {
+    } catch (error) {
 
-  console.error("ERRO AO CARREGAR PRODUTOS:", error);
+      console.error(
+        "ERRO AO CARREGAR PRODUTOS:",
+        error
+      );
 
-  setErro(
-    "Erro ao carregar produtos"
-  );
-
-
-} finally {
-
-  setLoading(false);
-
-}
-
-}
+      setErro(
+        "Erro ao carregar produtos"
+      );
 
 
+    } finally {
 
-useEffect(() => {
+      setLoading(false);
 
-  carregarProdutos();
+    }
 
-}, []);
+  }
 
 
 
-useEffect(() => {
+  useEffect(() => {
+
+    carregarProdutos();
+
+  }, []);
+
+
 
   console.log(
-    "PRODUTOS NO ESTADO:",
+    "ANTES DO RETURN:",
     produtos
   );
 
-}, [produtos]);
+
+
+  return (
+
+    <div
+      style={{
+        padding:"20px",
+        background:"#eee",
+        minHeight:"100vh"
+      }}
+    >
+
+
+      <h1
+        style={{
+          color:"black"
+        }}
+      >
+        CATÁLOGO DE MATERIAIS
+      </h1>
 
 
 
-return (
+      {erro && (
 
-<div className="catalogo">
+        <p style={{color:"red"}}>
+          {erro}
+        </p>
 
-  <header className="catalogo__header">
-
-    <h1 style={{ color: "white" }}>
-      CATALOGO DE MATERIAIS 
-    </h1>
-
-    <p>
-      Associação Sul de Rondônia
-    </p>
-
-  </header>
-
-
-  <div className="catalogo__aviso">
-
-    Precisa de algum material?
-    Procure a secretaria do departamento para realizar sua solicitação.
-    Os materiais serão disponibilizados conforme estoque.
-
-  </div>
-
- 
-  {erro && (
-
-    <p className="erro">
-      {erro}
-    </p>
-
-  )}
+      )}
 
 
 
-  {loading ? (
 
-    <p className="catalogo__loading">
-      Carregando...
-    </p>
+      {loading ? (
 
-  ) : (
-
-    <div className="catalogo__grid">
-
-      {
-        produtos.map((produto) => {
-
-          console.log(
-            "RENDERIZANDO:",
-            produto.id,
-            produto.nome
-          );
-
-          return (
-
-            <div
-              key={produto.id}
-              className="catalogo__card"
-            >
-
-              {produto.imagem && (
-
-                <img
-                  src={produto.imagem}
-                  alt={produto.nome}
-                  loading="lazy"
-                />
-
-              )}
+        <h2>
+          Carregando...
+        </h2>
 
 
-              <div className="catalogo__content">
-
-                <h3>
-                  {produto.nome}
-                </h3>
+      ) : (
 
 
-                <span>
-                  {produto.categoria_nome || "Sem departamento"}
-                </span>
-
-              </div>
+        <div>
 
 
-            </div>
+          {
+            produtos.map((produto)=>{
 
-          );
 
-        })
-      }
+              console.log(
+                "RENDERIZANDO:",
+                produto.id,
+                produto.nome
+              );
+
+
+              return (
+
+
+                <div
+                  key={produto.id}
+                  style={{
+                    border:"2px solid red",
+                    background:"#fff",
+                    padding:"20px",
+                    margin:"15px 0"
+                  }}
+                >
+
+
+
+                  <img
+                    src={produto.imagem}
+                    alt={produto.nome}
+                    style={{
+                      width:"150px"
+                    }}
+                  />
+
+
+
+                  <h2
+                    style={{
+                      color:"red",
+                      fontSize:"30px"
+                    }}
+                  >
+                    {produto.nome}
+                  </h2>
+
+
+
+                  <p>
+                    {produto.categoria_nome}
+                  </p>
+
+
+                </div>
+
+
+              );
+
+
+            })
+          }
+
+
+
+        </div>
+
+
+      )}
+
+
 
     </div>
 
-  )}
 
+  );
 
-</div>
-
-);
 
 }
