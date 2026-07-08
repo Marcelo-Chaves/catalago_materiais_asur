@@ -125,6 +125,10 @@ return (
 
     <div className="catalogo__grid">
 
+      <h2>
+          TESTE QUANTIDADE: {produtos.length}
+      </h2>
+
 
       {produtos.map((produto) => (
 
