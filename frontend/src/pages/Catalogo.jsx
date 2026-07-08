@@ -95,14 +95,7 @@ return (
 
   </div>
 
-
-  <div className="catalogo__contador">
-
-     {Array.isArray(produtos) ? produtos.length : 0} materiais cadastrados
-
-  </div>
-
-
+ 
   {erro && (
 
     <p className="erro">
@@ -125,12 +118,7 @@ return (
 
     <div className="catalogo__grid">
 
-      <h2 className="catalogo__contador">
-        📦 Itens Cadastrados: {produtos.length}
-      </h2>
-
-
-      {produtos.map((produto) => (
+        {produtos.map((produto) => (
 
 
         <div
