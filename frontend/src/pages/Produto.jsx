@@ -114,87 +114,118 @@ export default function Produtos() {
   // =========================
   async function salvar(e) {
 
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
+  try {
 
-      const formData = new FormData();
+    const formData = new FormData();
 
-          console.log("========== DADOS ANTES DO ENVIO ==========");
-          console.log("NOME:", nome);
-          console.log("DESCRIÇÃO:", descricao);
-          console.log("CATEGORIA:", categoriaId);
-          console.log("IMAGEM:", imagem);
+
+    console.log("========== DADOS ANTES DO ENVIO ==========");
+    console.log("NOME:", nome);
+    console.log("DESCRIÇÃO:", descricao);
+    console.log("CATEGORIA:", categoriaId);
+    console.log("IMAGEM:", imagem);
+
+
+    formData.append(
+      "nome",
+      nome
+    );
+
+
+    formData.append(
+      "descricao",
+      descricao
+    );
+
+
+    formData.append(
+      "categoria_id",
+      Number(categoriaId)
+    );
+
+
+    formData.append(
+      "quantidade",
+      1
+    );
+
+
+    if (imagem) {
 
       formData.append(
-        "nome",
-        nome
-      );
-
-formData.append(
-  "descricao",
-  descricao
-);
-
-      formData.append(
-        "categoria_id",
-        Number(categoriaId)
-      );
-
-      formData.append(
-        "quantidade",
-        1
-      );
-
-      if (imagem) {
-  formData.append(
-    "imagem",
-    imagem
-  );
-}
-
-console.log("========== FORMDATA ==========");
-
-for (let item of formData.entries()) {
-  console.log(item[0], item[1]);
-}
-
-
-if (produtoEditando) { {
-
-        await atualizarProduto(
-          produtoEditando.id,
-          formData
-        );
-
-      } else {
-
-        await criarProduto(
-          formData
-        );
-
-      }
-
-      setNome("");
-      setDescricao("");
-      setCategoriaId("");
-      setImagem(null);
-
-      setProdutoEditando(null);
-
-      carregarProdutos();
-
-    } catch (error) {
-
-      console.error(error);
-
-      setErro(
-        error.response?.data?.erro ||
-        error.message
+        "imagem",
+        imagem
       );
 
     }
+
+
+    console.log("========== FORMDATA ==========");
+
+    for (let item of formData.entries()) {
+
+      console.log(
+        item[0],
+        item[1]
+      );
+
+    }
+
+
+    if (produtoEditando) {
+
+
+      await atualizarProduto(
+        produtoEditando.id,
+        formData
+      );
+
+
+    } else {
+
+
+      await criarProduto(
+        formData
+      );
+
+
+    }
+
+
+    setNome("");
+
+    setDescricao("");
+
+    setCategoriaId("");
+
+    setImagem(null);
+
+    setProdutoEditando(null);
+
+
+    carregarProdutos();
+
+
+  } catch (error) {
+
+
+    console.error(
+      "ERRO AO SALVAR:",
+      error
+    );
+
+
+    setErro(
+      error.response?.data?.erro ||
+      error.message
+    );
+
+
   }
+
+}
 
   // =========================
   // EDITAR

@@ -12,8 +12,26 @@ import { produtoSchema } from "../validations/produtoValidation.js";
 
 export async function create(req, res) {
   try {
+
+    console.log("========== NOVO PRODUTO ==========");
+
     console.log("REQ BODY:", req.body);
-    console.log("REQ FILE:", req.file);
+
+    console.log(
+      "NOME RECEBIDO:",
+      req.body.nome
+    );
+
+    console.log(
+      "DESCRIÇÃO RECEBIDA:",
+      req.body.descricao
+    );
+
+    console.log(
+      "REQ FILE:",
+      req.file
+    );
+
 
     const data = {
       nome: req.body.nome,
@@ -22,13 +40,33 @@ export async function create(req, res) {
       quantidade: req.body.quantidade || 0
     };
 
+
+    console.log(
+      "DATA ANTES DO BANCO:",
+      data
+    );
+
+
     produtoSchema.parse(data);
+
 
     let imagem = null;
 
+
     if (req.file) {
-    imagem = await uploadImagemSupabase(req.file);
-  }
+
+      imagem = await uploadImagemSupabase(
+        req.file
+      );
+
+    }
+
+
+    console.log(
+      "IMAGEM GERADA:",
+      imagem
+    );
+
 
     const produto = await criarProduto(
       data.nome,
@@ -38,17 +76,31 @@ export async function create(req, res) {
       imagem
     );
 
+
+    console.log(
+      "PRODUTO SALVO:",
+      produto
+    );
+
+
     return res.status(201).json(produto);
 
+
   } catch (error) {
-    console.log("ERRO BACKEND:", error);
+
+
+    console.log(
+      "ERRO BACKEND:",
+      error
+    );
+
 
     return res.status(400).json({
       erro: error.message
     });
+
   }
 }
-
 export async function findAll(req, res) {
   try {
     const page = parseInt(req.query.page) || 1;
