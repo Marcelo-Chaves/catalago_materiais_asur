@@ -1,5 +1,7 @@
 import axios from "axios";
 
+console.log("API NOVA PRODUÇÃO CARREGADA");
+
 const api = axios.create({
   baseURL: "https://catalago-materiais-asur.onrender.com",
   headers: {
