@@ -112,63 +112,64 @@ return (
       Carregando...
     </p>
 
-
   ) : (
-
 
     <div className="catalogo__grid">
 
-        {produtos.map((produto) => (
+      {
+        produtos.map((produto) => {
+
+          console.log(
+            "RENDERIZANDO:",
+            produto.id,
+            produto.nome
+          );
+
+          return (
+
+            <div
+              key={produto.id}
+              className="catalogo__card"
+            >
+
+              {produto.imagem && (
+
+                <img
+                  src={produto.imagem}
+                  alt={produto.nome}
+                  loading="lazy"
+                />
+
+              )}
 
 
-        <div
-          key={produto.id}
-          className="catalogo__card"
-        >
+              <div className="catalogo__content">
+
+                <h3>
+                  {produto.nome}
+                </h3>
 
 
-          {produto.imagem && (
+                <span>
+                  {produto.categoria_nome || "Sem departamento"}
+                </span>
 
-            <img
-              src={produto.imagem}
-              alt={produto.nome}
-              loading="lazy"
-            />
-
-          )}
+              </div>
 
 
+            </div>
 
-          <div className="catalogo__content">
+          );
 
-
-            <h3>
-              {produto.nome}
-            </h3>
-
-
-            <span>
-              {produto.categoria_nome || "Sem departamento"}
-            </span>
-
-
-          </div>
-
-
-        </div>
-
-
-      ))}
-
+        })
+      }
 
     </div>
-
 
   )}
 
 
 </div>
-
 
 );
 

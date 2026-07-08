@@ -7,6 +7,16 @@ export async function criarProduto(
   quantidade,
   imagem
 ) {
+
+  console.log("========== ANTES DO INSERT ==========");
+  console.log({
+    nome,
+    descricao,
+    categoria_id,
+    quantidade,
+    imagem
+  });
+
   const query = `
     INSERT INTO produtos (
       nome,
@@ -16,19 +26,19 @@ export async function criarProduto(
       imagem
     )
     VALUES ($1, $2, $3, $4, $5)
-    RETURNING *
+    RETURNING *;
   `;
 
-  const result = await db.query(
-    query,
-    [
-      nome,
-      descricao,
-      categoria_id,
-      quantidade,
-      imagem
-    ]
-  );
+  const result = await db.query(query, [
+    nome,
+    descricao,
+    categoria_id,
+    quantidade,
+    imagem
+  ]);
+
+  console.log("========== DEPOIS DO INSERT ==========");
+  console.log(result.rows[0]);
 
   return result.rows[0];
 }
