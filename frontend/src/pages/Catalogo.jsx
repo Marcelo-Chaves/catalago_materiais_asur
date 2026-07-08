@@ -76,8 +76,8 @@ return (
 
   <header className="catalogo__header">
 
-    <h1 style={{ color: "red" }}>
-      TESTE SUPABASE 12345
+    <h1 style={{ color: "white" }}>
+      CATALOGO DE MATERIAIS 
     </h1>
 
     <p>
