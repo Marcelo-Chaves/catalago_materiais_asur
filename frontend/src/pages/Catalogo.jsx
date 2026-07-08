@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { listarProdutos } from "../api/produtoApi";
 
-//import "../styles/Catalago.scss";
+import "../styles/Catalago.scss";
 
 export default function Catalogo() {
 
