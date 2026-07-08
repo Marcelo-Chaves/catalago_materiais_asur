@@ -98,7 +98,7 @@ return (
 
   <div className="catalogo__contador">
 
-    📦 {Array.isArray(produtos) ? produtos.length : 0} materiais cadastrados
+     {Array.isArray(produtos) ? produtos.length : 0} materiais cadastrados
 
   </div>
 
@@ -125,8 +125,8 @@ return (
 
     <div className="catalogo__grid">
 
-      <h2>
-          PRODUTOS NA TELA: {produtos.length}
+      <h2 className="catalogo__contador">
+        📦 Itens Cadastrados: {produtos.length}
       </h2>
 
 
