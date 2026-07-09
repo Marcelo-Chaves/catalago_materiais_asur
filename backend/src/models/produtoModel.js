@@ -90,6 +90,12 @@ let query = `
   values.push(limit);
   values.push(offset);
 
+  console.log("QUERY FINAL PRODUTOS:");
+  console.log(query);
+
+  console.log("VALORES:");
+  console.log(values);
+
   const result = await db.query(query, values);
 
   return result.rows;

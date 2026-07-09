@@ -127,7 +127,7 @@ return (
 
           return (
 
-            <div
+            <div translate="no"
               key={produto.id}
               className="catalogo__card"
             >
@@ -138,6 +138,7 @@ return (
                   src={produto.imagem}
                   alt={produto.nome}
                   loading="lazy"
+                  translate="no"
                 />
 
               )}
@@ -145,7 +146,7 @@ return (
 
               <div className="catalogo__content">
 
-                <h3 style={{color:"red", fontSize:"30px"}}>
+                <h3  translate="no">
                     {produto.nome}
                 </h3>
 
