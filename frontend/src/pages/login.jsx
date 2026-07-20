@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 
-import "../styles/Login.scss";
+import "../styles/login.scss";
 
 export default function Login() {
 
