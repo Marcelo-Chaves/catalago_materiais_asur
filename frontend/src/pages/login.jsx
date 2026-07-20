@@ -2,83 +2,157 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 
+import "../styles/Login.scss";
+
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [erro, setErro] = useState("");
 
   const navigate = useNavigate();
 
-  async function handleLogin(e) { 
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const [erro, setErro] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(e) {
+
     e.preventDefault();
 
+    setErro("");
+    setLoading(true);
+
     try {
-      const response = await api.post("/auth/login", {
-        email,
-        senha
-      });
 
-      
+      const response = await api.post(
+        "/auth/login",
+        {
+          email,
+          senha
+        }
+      );
 
-      localStorage.setItem("token", response.data.token);
       localStorage.setItem(
-  "usuario",
-  JSON.stringify(response.data.usuario)
-);
+        "token",
+        response.data.token
+      );
 
-const usuario = response.data.usuario;
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify(
+          response.data.usuario
+        )
+      );
 
-if (usuario.tipo === "admin") {
-  navigate("/dashboard");
-} else {
-  navigate("/");
-}
+      const usuario =
+        response.data.usuario;
 
-      
+      if (usuario.tipo === "admin") {
+
+        navigate("/dashboard");
+
+      } else {
+
+        navigate("/");
+
+      }
 
     } catch (error) {
-     
 
       setErro(
         error.response?.data?.erro ||
-        "Erro ao realizar login"
+        "E-mail ou senha inválidos."
       );
+
+    } finally {
+
+      setLoading(false);
+
     }
+
   }
 
   return (
-    <div>
-      <h1>Conecte-se</h1>
 
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>E-mail</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    <main className="login">
+
+      <div className="login__card">
+
+        <div className="login__logo">
+
         </div>
 
-        <br />
+        <h1>
+          Painel Administrativo
+        </h1>
 
-        <div>
-          <label>Senha</label>
-          <br />
-          <input
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-        </div>
+        <p>
+          Catálogo de Materiais ASUR
+        </p>
 
-        <br />
+        <form
+          onSubmit={handleLogin}
+          className="login__form"
+        >
 
-        <button type="submit">Entrar</button>
-      </form>
+          <div className="login__grupo">
 
-      {erro && <p>{erro}</p>}
-    </div>
+            <label>E-mail</label>
+
+            <input
+              type="email"
+              placeholder="Digite seu e-mail"
+              autoComplete="email"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+            />
+
+          </div>
+
+          <div className="login__grupo">
+
+            <label>Senha</label>
+
+            <input
+              type="password"
+              placeholder="Digite sua senha"
+              autoComplete="current-password"
+              value={senha}
+              onChange={(e) =>
+                setSenha(e.target.value)
+              }
+            />
+
+          </div>
+
+          {erro && (
+
+            <div className="login__erro">
+
+              {erro}
+
+            </div>
+
+          )}
+
+          <button
+            type="submit"
+            disabled={loading}
+          >
+
+            {loading
+              ? "Entrando..."
+              : "Entrar"}
+
+          </button>
+
+        </form>
+
+      </div>
+
+    </main>
+
   );
+
 }

@@ -1,0 +1,224 @@
+.login {
+
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+
+  background: linear-gradient(
+    135deg,
+    #0f3d63 0%,
+    #1f5f91 50%,
+    #2f7bb6 100%
+  );
+
+}
+
+.login__card {
+
+  width: 100%;
+  max-width: 430px;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  padding: 40px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.20);
+
+  animation: aparecer .5s ease;
+
+}
+
+.login__logo {
+
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 25px;
+
+  img{
+
+    width: 90px;
+    height: auto;
+
+  }
+
+}
+
+.login h1{
+
+  text-align:center;
+
+  color:#0f3d63;
+
+  font-size:30px;
+
+  margin-bottom:10px;
+
+}
+
+.login p{
+
+  text-align:center;
+
+  color:#666;
+
+  margin-bottom:35px;
+
+}
+
+.login__form{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:20px;
+
+}
+
+.login__grupo{
+
+  display:flex;
+
+  flex-direction:column;
+
+}
+
+.login__grupo label{
+
+  font-weight:600;
+
+  color:#0f3d63;
+
+  margin-bottom:8px;
+
+}
+
+.login__grupo input{
+
+  height:50px;
+
+  border:1px solid #d7d7d7;
+
+  border-radius:10px;
+
+  padding:0 15px;
+
+  font-size:15px;
+
+  transition:.25s;
+
+}
+
+.login__grupo input:focus{
+
+  outline:none;
+
+  border-color:#0f3d63;
+
+  box-shadow:0 0 0 3px rgba(15,61,99,.15);
+
+}
+
+.login button{
+
+  height:52px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:#0f3d63;
+
+  color:#fff;
+
+  font-size:16px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:.3s;
+
+}
+
+.login button:hover{
+
+  background:#155281;
+
+}
+
+.login button:disabled{
+
+  opacity:.7;
+
+  cursor:not-allowed;
+
+}
+
+.login__erro{
+
+  background:#fdecec;
+
+  color:#b00020;
+
+  border:1px solid #f5bcbc;
+
+  border-radius:8px;
+
+  padding:12px;
+
+  text-align:center;
+
+  font-size:14px;
+
+}
+
+@keyframes aparecer{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(25px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+  }
+
+}
+
+@media (max-width:768px){
+
+  .login{
+
+    padding:20px;
+
+  }
+
+  .login__card{
+
+    padding:30px 25px;
+
+  }
+
+  .login h1{
+
+    font-size:26px;
+
+  }
+
+}
