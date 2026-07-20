@@ -4,166 +4,297 @@ import { listarProdutos } from "../api/produtoApi";
 
 import "../styles/Catalago.scss";
 
+
 export default function Catalogo() {
 
-const [produtos, setProdutos] = useState([]);
-const [loading, setLoading] = useState(true);
-const [erro, setErro] = useState("");
 
+  const [produtos, setProdutos] = useState([]);
 
-async function carregarProdutos() {
+  const [produtosFiltrados, setProdutosFiltrados] =
+    useState([]);
 
-try {
+  const [busca, setBusca] = useState("");
 
-  setLoading(true);
+  const [loading, setLoading] = useState(true);
 
-  const response = await listarProdutos();
+  const [erro, setErro] = useState("");
 
 
 
+  async function carregarProdutos() {
 
-  const dados = response?.data ?? [];
+    try {
 
+      setLoading(true);
 
 
+      const response =
+        await listarProdutos();
 
 
-  setProdutos(dados);
 
+      const dados =
+        Array.isArray(response)
+          ? response
+          : response?.data ||
+            response?.produtos ||
+            [];
 
-} catch (error) {
 
-  console.error("ERRO AO CARREGAR PRODUTOS:", error);
 
-  setErro(
-    "Erro ao carregar produtos"
-  );
+      setProdutos(dados);
 
+      setProdutosFiltrados(dados);
 
-} finally {
 
-  setLoading(false);
 
-}
+    } catch (error) {
 
-}
 
+      setErro(
+        "Erro ao carregar produtos"
+      );
 
 
-useEffect(() => {
+    } finally {
 
-  carregarProdutos();
 
-}, []);
+      setLoading(false);
 
 
+    }
 
-useEffect(() => {
+  }
 
- 
 
-}, [produtos]);
 
+  function pesquisar(valor) {
 
 
-return (
+    setBusca(valor);
 
-<div className="catalogo">
 
-  <header className="catalogo__header">
 
-    <h1 style={{ color: "white" }}>
-      CATALOGO DE MATERIAIS 
-    </h1>
+    const texto =
+      valor.toLowerCase();
 
-    <p>
-      Associação Sul de Rondônia
-    </p>
 
-  </header>
 
+    const resultado =
+      produtos.filter((produto) => {
 
-  <div className="catalogo__aviso">
 
-    Precisa de algum material?
-    Procure a secretaria do departamento para realizar sua solicitação.
-    Os materiais serão disponibilizados conforme estoque.
+        const nome =
+          produto.nome
+          ?.toLowerCase() || "";
 
-  </div>
 
- 
-  {erro && (
 
-    <p className="erro">
-      {erro}
-    </p>
+        const categoria =
+          produto.categoria_nome
+          ?.toLowerCase() || "";
 
-  )}
 
 
+        return (
 
-  {loading ? (
+          nome.includes(texto) ||
 
-    <p className="catalogo__loading">
-      Carregando...
-    </p>
+          categoria.includes(texto)
 
-  ) : (
+        );
 
-    <div className="catalogo__grid">
 
-      {
-        produtos.map((produto) => {
+      });
 
-          
 
-          return (
 
-            <div translate="no"
-              key={produto.id}
-              className="catalogo__card"
-            >
+    setProdutosFiltrados(resultado);
 
-              {produto.imagem && (
 
-                <img
-                  src={produto.imagem}
-                  alt={produto.nome}
-                  loading="lazy"
-                  translate="no"
-                />
+  }
 
-              )}
 
 
-              <div className="catalogo__content">
 
-                <h3  translate="no">
+  useEffect(() => {
+
+    carregarProdutos();
+
+  }, []);
+
+
+
+
+  return (
+
+    <div className="catalogo">
+
+
+      <header className="catalogo__header">
+
+
+        <h1>
+          CATÁLOGO DE MATERIAIS
+        </h1>
+
+
+        <p>
+          Associação Sul de Rondônia
+        </p>
+
+
+      </header>
+
+
+
+      <div className="catalogo__aviso">
+
+
+        Precisa de algum material?
+
+        Procure a secretaria do departamento
+        para realizar sua solicitação.
+
+
+      </div>
+
+
+
+
+      <div className="catalogo__busca">
+
+
+        <input
+
+          type="text"
+
+          placeholder="Pesquisar material..."
+
+          value={busca}
+
+          onChange={(e) =>
+            pesquisar(e.target.value)
+          }
+
+        />
+
+
+      </div>
+
+
+
+
+
+      {erro && (
+
+        <p className="erro">
+
+          {erro}
+
+        </p>
+
+      )}
+
+
+
+
+
+
+      {loading ? (
+
+
+        <p className="catalogo__loading">
+
+          Carregando...
+
+        </p>
+
+
+
+      ) : (
+
+
+        <div className="catalogo__grid">
+
+
+          {
+
+            produtosFiltrados.map((produto) => (
+
+
+              <div
+
+                key={produto.id}
+
+                className="catalogo__card"
+
+              >
+
+
+
+                {produto.imagem && (
+
+
+                  <img
+
+                    src={produto.imagem}
+
+                    alt={produto.nome}
+
+                    loading="lazy"
+
+                  />
+
+
+                )}
+
+
+
+
+                <div className="catalogo__content">
+
+
+                  <h3>
+
                     {produto.nome}
-                </h3>
+
+                  </h3>
 
 
-                <span>
-                  {produto.categoria_nome || "Sem departamento"}
-                </span>
+
+                  <span>
+
+                    {produto.categoria_nome ||
+                    "Sem categoria"}
+
+                  </span>
+
+
+
+                </div>
+
+
 
               </div>
 
 
-            </div>
 
-          );
+            ))
 
-        })
-      }
+          }
+
+
+
+        </div>
+
+
+      )}
+
+
 
     </div>
 
-  )}
-
-
-</div>
-
-);
+  );
 
 }
