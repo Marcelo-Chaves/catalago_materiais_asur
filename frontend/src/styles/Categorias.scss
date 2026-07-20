@@ -1,0 +1,158 @@
+@use "./Variables" as *;
+
+
+/* ==========================
+   CATEGORIAS
+========================== */
+
+.categorias {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+
+}
+
+
+.categorias h1 {
+
+  margin: 0;
+
+  color: $text;
+
+  font-size: 32px;
+
+}
+
+
+/* FORMULÁRIO */
+
+.categorias__form {
+
+  background: $surface;
+
+  padding: 24px;
+
+  border-radius: $radius;
+
+  border: 1px solid $border;
+
+  box-shadow: $shadow;
+
+  display: flex;
+
+  gap: 16px;
+
+}
+
+
+.categorias__form input {
+
+  flex: 1;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  border: 1px solid $border;
+
+}
+
+
+
+/* BOTÕES */
+
+.categorias__salvar,
+.categorias__editar,
+.categorias__excluir,
+.categorias__cancelar {
+
+  border: none;
+
+  padding: 10px 16px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  color: white;
+
+  font-weight: 600;
+
+}
+
+
+.categorias__salvar,
+.categorias__editar {
+
+  background: $primary;
+
+}
+
+
+.categorias__excluir,
+.categorias__cancelar {
+
+  background: $error;
+
+}
+
+
+
+/* TABELA */
+
+.categorias table {
+
+  width: 100%;
+
+  background: $surface;
+
+  border-collapse: collapse;
+
+  box-shadow: $shadow;
+
+}
+
+
+.categorias th {
+
+  background: $primary;
+
+  color: white;
+
+  padding: 14px;
+
+  text-align: left;
+
+}
+
+
+.categorias td {
+
+  padding: 14px;
+
+  border-bottom: 1px solid $border;
+
+}
+
+
+
+.categorias tr:hover {
+
+  background: $background;
+
+}
+
+
+
+@media(max-width:768px){
+
+  .categorias__form {
+
+    flex-direction: column;
+
+  }
+
+}

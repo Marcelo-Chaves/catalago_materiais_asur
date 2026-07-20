@@ -18,9 +18,7 @@ export default function Login() {
         senha
       });
 
-      console.log("USUARIO:", response.data.usuario);
-      console.log("ROLE:", response.data.usuario?.role);
-      console.log("TOKEN:", response.data.token);
+      
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem(
@@ -33,14 +31,13 @@ const usuario = response.data.usuario;
 if (usuario.tipo === "admin") {
   navigate("/dashboard");
 } else {
-  navigate("/catalogo");
+  navigate("/");
 }
 
-      navigate("/dashboard");
+      
 
     } catch (error) {
-      console.log("ERRO COMPLETO:", error);
-      console.log("RESPOSTA DO BACKEND:", error.response?.data);
+     
 
       setErro(
         error.response?.data?.erro ||

@@ -1,0 +1,92 @@
+@use "./Variables" as *;
+
+/* ==========================
+   DASHBOARD
+========================== */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Cabeçalho */
+.dashboard__header {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard__header h1 {
+  margin: 0;
+  color: $text;
+  font-size: 32px;
+}
+
+.dashboard__header p {
+  margin-top: 8px;
+  color: $text-light;
+}
+
+/* Cards */
+
+.dashboard__cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.dashboard__card {
+  background: $surface;
+  border-radius: $radius;
+  padding: 24px;
+  box-shadow: $shadow;
+  border: 1px solid $border;
+}
+
+.dashboard__card h3 {
+  margin: 0;
+  color: $text-light;
+  font-size: 15px;
+}
+
+.dashboard__card span {
+  display: block;
+  margin-top: 16px;
+  font-size: 36px;
+  font-weight: bold;
+  color: $primary;
+}
+
+/* Perfil */
+
+.dashboard__perfil {
+  background: $surface;
+  border-radius: $radius;
+  padding: 24px;
+  box-shadow: $shadow;
+  border: 1px solid $border;
+}
+
+.dashboard__perfil h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.dashboard__item {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid $border;
+}
+
+.dashboard__item:last-child {
+  border-bottom: none;
+}
+
+.dashboard__item strong {
+  color: $text;
+}
+
+.dashboard__item span {
+  color: $text-light;
+}

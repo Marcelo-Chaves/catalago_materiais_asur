@@ -1,0 +1,97 @@
+/* ===============================
+   HEADER DO PAINEL ADMINISTRATIVO
+================================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 30px;
+
+  background: #ffffff;
+
+  border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+
+  margin-bottom: 30px;
+}
+
+/* Informações da página */
+.header__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.header__title {
+  margin: 0;
+
+  font-size: 28px;
+
+  font-weight: 700;
+
+  color: #1f2937;
+}
+
+.header__subtitle {
+  margin-top: 6px;
+
+  font-size: 15px;
+
+  color: #6b7280;
+}
+
+/* Área do usuário */
+.header__user {
+  display: flex;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+.header__profile {
+  display: flex;
+
+  flex-direction: column;
+
+  text-align: right;
+}
+
+.header__name {
+  font-size: 16px;
+
+  font-weight: 600;
+
+  color: #111827;
+}
+
+.header__role {
+  font-size: 13px;
+
+  color: #6b7280;
+}
+
+/* Botão sair */
+.header__logout {
+  padding: 10px 18px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #dc2626;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.header__logout:hover {
+  background: #b91c1c;
+}

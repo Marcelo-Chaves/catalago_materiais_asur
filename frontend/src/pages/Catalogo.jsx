@@ -19,14 +19,13 @@ try {
 
   const response = await listarProdutos();
 
-  console.log("RESPOSTA COMPLETA API:", response);
+
 
 
   const dados = response?.data ?? [];
 
 
-  console.log("DADOS:", dados);
-  console.log("QUANTIDADE:", dados.length);
+
 
 
   setProdutos(dados);
@@ -61,14 +60,11 @@ useEffect(() => {
 
 useEffect(() => {
 
-  console.log(
-    "PRODUTOS NO ESTADO:",
-    produtos
-  );
+ 
 
 }, [produtos]);
 
-console.log("ANTES DO RETURN:", produtos);
+
 
 return (
 
@@ -119,11 +115,7 @@ return (
       {
         produtos.map((produto) => {
 
-          console.log(
-            "RENDERIZANDO:",
-            produto.id,
-            produto.nome
-          );
+          
 
           return (
 

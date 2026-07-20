@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Sidebar() {
   return (
     <aside className="sidebar">
-      <h2>Catálogo ASUR</h2>
+      <h2>Catálogo de materiais ASUR</h2>
 
       <nav>
         <ul>
@@ -21,7 +21,7 @@ export default function Sidebar() {
 
           <li>
             <Link to="/produtos">
-              Produtos
+              Materiais
             </Link>
           </li>
         </ul>

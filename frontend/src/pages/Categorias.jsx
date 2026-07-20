@@ -10,6 +10,8 @@ import {
   excluirCategoria
 } from "../api/categoriaApi";
 
+import "../styles/Categorias.scss";
+
 export default function Categorias() {
 
   const [nome, setNome] = useState("");
@@ -130,6 +132,8 @@ export default function Categorias() {
   return (
     <Layout>
 
+      <section className="categorias">
+
       <h1>Categorias</h1>
 
       {erro && (
@@ -138,7 +142,11 @@ export default function Categorias() {
         </p>
       )}
 
-      <form onSubmit={salvar}>
+      <form 
+      
+        onSubmit={salvar}
+        className="categorias__form"
+        >
 
         <input
           type="text"
@@ -149,7 +157,9 @@ export default function Categorias() {
           }
         />
 
-        <button type="submit">
+        <button
+          className="categorias__salvar"
+          type="submit">
 
           {categoriaEditando
             ? "Atualizar"
@@ -219,6 +229,7 @@ export default function Categorias() {
                   <td>
 
                     <button
+                      className="categorias__editar"
                       type="button"
                       onClick={() =>
                         editar(
@@ -232,6 +243,7 @@ export default function Categorias() {
                     {" "}
 
                     <button
+                      className="categorias__excluir"
                       type="button"
                       onClick={() =>
                         remover(
@@ -254,7 +266,7 @@ export default function Categorias() {
         </table>
 
       )}
-
+    </section>
     </Layout>
   );
 }

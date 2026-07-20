@@ -1,0 +1,248 @@
+@use "./Variables" as *;
+
+/* ==========================
+   PÁGINA DE MATERIAIS
+========================== */
+
+.produtos {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+/* Título */
+
+.produtos h1 {
+  margin: 0;
+
+  color: $text;
+
+  font-size: 32px;
+}
+
+
+/* Mensagem de erro */
+
+.produtos__erro {
+  color: $error;
+
+  background: #fee2e2;
+
+  padding: 12px 16px;
+
+  border-radius: $radius;
+}
+
+
+/* Formulário */
+
+.produtos__form {
+
+  background: $surface;
+
+  padding: 24px;
+
+  border-radius: $radius;
+
+  box-shadow: $shadow;
+
+  border: 1px solid $border;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+}
+
+
+/* Inputs */
+
+.produtos__form input,
+.produtos__form select {
+
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  border: 1px solid $border;
+
+  font-size: 15px;
+
+  outline: none;
+
+}
+
+
+.produtos__form input:focus,
+.produtos__form select:focus {
+
+  border-color: $primary;
+
+}
+
+
+/* Botões */
+
+.produtos__acoes {
+
+  display: flex;
+
+  gap: 12px;
+
+}
+
+
+.produtos__form button {
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: $primary;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: $transition;
+
+}
+
+
+.produtos__form button:hover {
+
+  background: $primary-dark;
+
+}
+
+
+/* Botão cancelar */
+
+.produtos__cancelar {
+
+  background: $error !important;
+
+}
+
+
+/* Tabela */
+
+.produtos__tabela {
+
+  width: 100%;
+
+  background: $surface;
+
+  border-collapse: collapse;
+
+  border-radius: $radius;
+
+  overflow: hidden;
+
+  box-shadow: $shadow;
+
+}
+
+
+.produtos__tabela th {
+
+  background: $primary;
+
+  color: white;
+
+  padding: 14px;
+
+  text-align: left;
+
+}
+
+
+.produtos__tabela td {
+
+  padding: 14px;
+
+  border-bottom: 1px solid $border;
+
+  color: $text;
+
+}
+
+
+.produtos__tabela tr:hover {
+
+  background: $background;
+
+}
+
+
+/* Imagem */
+
+.produtos__imagem {
+
+  width: 60px;
+
+  height: 60px;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+}
+
+
+/* Botões da tabela */
+
+.produtos__editar,
+.produtos__excluir {
+
+  padding: 8px 12px;
+
+  border-radius: 6px;
+
+  border: none;
+
+  cursor: pointer;
+
+  color: white;
+
+}
+
+
+.produtos__editar {
+
+  background: $info;
+
+}
+
+
+.produtos__excluir {
+
+  background: $error;
+
+}
+
+
+/* Responsividade */
+
+@media(max-width: 768px) {
+
+
+  .produtos__tabela {
+
+    display: block;
+
+    overflow-x: auto;
+
+  }
+
+
+}

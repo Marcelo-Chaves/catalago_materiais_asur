@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
+import "../styles/Produtos.scss";
 
 import {
   listarProdutos,
@@ -38,10 +39,7 @@ export default function Produtos() {
 
       const response = await listarProdutos();
 
-      console.log(
-        "RESPOSTA API:",
-        response
-      );
+      
 
       const dados =
         Array.isArray(response)
@@ -83,10 +81,7 @@ export default function Produtos() {
             response?.data ||
             [];
 
-      console.log(
-        "DADOS CATEGORIAS:",
-        dados
-      );
+      
 
       setCategorias(dados);
 
@@ -121,11 +116,7 @@ export default function Produtos() {
     const formData = new FormData();
 
 
-    console.log("========== DADOS ANTES DO ENVIO ==========");
-    console.log("NOME:", nome);
-    console.log("DESCRIÇÃO:", descricao);
-    console.log("CATEGORIA:", categoriaId);
-    console.log("IMAGEM:", imagem);
+    
 
 
     formData.append(
@@ -162,14 +153,11 @@ export default function Produtos() {
     }
 
 
-    console.log("========== FORMDATA ==========");
+    
 
     for (let item of formData.entries()) {
 
-      console.log(
-        item[0],
-        item[1]
-      );
+  
 
     }
 
@@ -276,7 +264,9 @@ async function remover(id) {
 return (
   <Layout>
 
-    <h1>Produtos</h1>
+    <section className="produtos"></section>
+
+    <h1>Materiais</h1>
 
     {erro && (
       <p style={{ color: "red" }}>
@@ -284,7 +274,10 @@ return (
       </p>
     )}
 
-    <form onSubmit={salvar}>
+    <form 
+      className="produtos__form"
+      onSubmit={salvar}
+      >
 
       <input
         type="text"
@@ -413,7 +406,7 @@ return (
                 {p.imagem && (
 
                   <img
-                    src={`http://localhost:3333/uploads/${p.imagem}`}
+                    src={p.imagem}
                     alt={p.nome}
                     width="60"
                   />
@@ -425,8 +418,10 @@ return (
               <td>
 
                 <button
+                  className="produtos__editar"
                   type="button"
                   onClick={() =>
+
                     editar(p)
                   }
                 >
@@ -436,6 +431,7 @@ return (
                 {" "}
 
                 <button
+                  className="produtos__excluir"
                   type="button"
                   onClick={() =>
                     remover(p.id)
