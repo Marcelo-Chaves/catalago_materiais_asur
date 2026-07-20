@@ -1,4 +1,43 @@
+
+/**
+* ============================================================ 
+* produtoModel.js 
+* ------------------------------------------------------------ 
+* Responsável pelas operações de acesso ao banco de dados 
+* relacionadas aos produtos. 
+* 
+* Funções disponíveis: 
+* • Criar produto. 
+* • Listar produtos. 
+* • Buscar produto por ID. 
+* • Atualizar produto. 
+* • Excluir produto. 
+* 
+* Observação: 
+* Este arquivo contém apenas consultas ao banco de dados. 
+* As validações e regras de negócio são tratadas pelos 
+* Controllers. 
+* ============================================================
+*/
+
 import { db } from "../config/database.js";
+
+/* ============================================================ 
+* Cadastro de Produtos 
+* ============================================================ 
+*/
+
+/** 
+* Cadastra um novo produto. 
+* 
+* @param {string} nome - Nome do produto. 
+* @param {string} descricao - Descrição do produto. 
+* @param {number} categoria_id - ID da categoria. 
+* @param {number} quantidade - Quantidade disponível. 
+* @param {string} imagem - URL da imagem do produto. 
+* 
+* @returns {Object} Produto recém-cadastrado. 
+*/
 
 export async function criarProduto(
   nome,
@@ -42,6 +81,27 @@ export async function criarProduto(
 
   return result.rows[0];
 }
+/* ============================================================ 
+* Consulta de Produtos 
+* ============================================================ 
+*/ 
+/** 
+* Lista os produtos cadastrados. 
+* 
+* Permite: 
+* • Paginação. 
+* • Pesquisa por nome. 
+* • Filtro por categoria. 
+* 
+* Os produtos são retornados do mais recente para o mais antigo. 
+* 
+* @param {number} page - Página atual. 
+* @param {number} limit - Quantidade de registros por página. 
+* @param {string} nome - Texto para pesquisa por nome. 
+* @param {number|null} categoria_id - Categoria utilizada como filtro. 
+* 
+* @returns {Array} Lista de produtos. 
+*/
 
 export async function listarProdutos(
   page = 1,
@@ -69,17 +129,28 @@ let query = `
   const values = [];
   let index = 1;
 
+  /** 
+  * Aplica filtro pelo nome do produto. 
+  */
+
   if (nome) {
     query += ` AND LOWER(p.nome) LIKE LOWER($${index})`;
     values.push(`%${nome}%`);
     index++;
   }
+  /** 
+  * Aplica filtro pela categoria. 
+  */
 
   if (categoria_id) {
     query += ` AND p.categoria_id = $${index}`;
     values.push(categoria_id);
     index++;
   }
+  /** 
+  * Ordena os produtos do mais recente para o mais antigo 
+  * e aplica a paginação da consulta. 
+  */
 
   query += `
     ORDER BY p.id DESC
@@ -100,6 +171,13 @@ let query = `
 
   return result.rows;
 }
+/**
+* Busca um produto pelo seu identificador. 
+* 
+* @param {number} id - ID do produto. 
+* 
+* @returns {Object|undefined} Produto encontrado. 
+*/
 
 export async function buscarProdutoPorId(id) {
   const result = await db.query(
@@ -121,6 +199,18 @@ export async function buscarProdutoPorId(id) {
 
   return result.rows[0];
 }
+/* ============================================================ 
+* Atualização de Produtos 
+* ============================================================ 
+*/ 
+/** 
+* Atualiza os dados de um produto. 
+* 
+* Caso uma nova imagem seja enviada, 
+* ela também será atualizada. 
+* 
+* @returns {Object} Produto atualizado. 
+*/
 
 export async function atualizarProduto(
   id,
@@ -179,7 +269,15 @@ export async function atualizarProduto(
 
   return result.rows[0];
 }
-
+/* ============================================================ 
+* Exclusão de Produtos 
+* ============================================================ 
+*/ 
+/** 
+* Remove um produto do banco de dados. 
+* 
+* @param {number} id - Identificador do produto. 
+*/
 export async function excluirProduto(id) {
   await db.query(
     "DELETE FROM produtos WHERE id = $1",
