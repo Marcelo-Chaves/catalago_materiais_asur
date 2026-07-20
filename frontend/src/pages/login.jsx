@@ -46,7 +46,7 @@ export default function Login() {
       const usuario =
         response.data.usuario;
 
-      if (usuario.tipo === "admin") {
+      if (usuario.role === "admin") {
 
         navigate("/dashboard");
 
