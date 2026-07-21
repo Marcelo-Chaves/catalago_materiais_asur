@@ -30,7 +30,7 @@ const { Pool } = pg;
  * Instância responsável pelo gerenciamento das conexões
  * com o banco de dados.
  */
-let db;
+
 
 /* ============================================================
  * Configuração da conexão
